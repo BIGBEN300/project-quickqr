@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickQR</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Welcome to <span>QuickQR</span></h1>
+      <p>The simplest way to create and manage QR codes</p>
+    </header>
+
+    <div class="card">
+      <input type="text" id="qrInput" placeholder="Enter data or URL...">
+
+      <div class="color-options">
+        <label>QR Color: <input type="color" id="qrColor" value="#000000"></label>
+        <label>Background: <input type="color" id="bgColor" value="#ffffff"></label>
+      </div>
+
+      <div class="size-options">
+        <label for="qrSize">Size:</label>
+        <select id="qrSize">
+          <option value="150">Small</option>
+          <option value="300" selected>Medium</option>
+          <option value="500">Large</option>
+        </select>
+      </div>
+
+      <button id="generateBtn">Generate</button>
+    </div>
+
+    <div class="card output" id="outputCard" style="display: none;">
+      <h2>Your Generated QR Code</h2>
+      <img id="qrCode" src="" alt="QR Code will appear here">
+      <p id="qrData"></p>
+      <button id="downloadBtn" style="display:none;">Download QR Code</button>
+    </div>
+
+    <div class="card history" id="historyCard" style="display: none;">
+     <h2>History</h2>
+     <div id="historyList" class="history-list"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
