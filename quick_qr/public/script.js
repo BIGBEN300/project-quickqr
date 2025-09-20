@@ -7,6 +7,7 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
   const qrImg = document.getElementById("qrCode");
   const qrData = document.getElementById("qrData");
   const downloadBtn = document.getElementById("downloadBtn");
+  const copyBtn = document.getElementById("copyBtn");
   const historyCard = document.getElementById("historyCard");
   const historyList = document.getElementById("historyList");
 
@@ -27,6 +28,7 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
     qrData.textContent = `Data: ${input}`;
     outputCard.style.display = "block";
     downloadBtn.style.display = "inline-block";
+    copyBtn.style.display = "inline-block";
 
     // Enable download
     downloadBtn.onclick = () => {
@@ -36,7 +38,22 @@ document.getElementById("generateBtn").addEventListener("click", async () => {
       link.click();
     };
 
-    // ✅ Add to history
+    // Enable copy as image
+    copyBtn.onclick = async () => {
+      try {
+        const response = await fetch(qrImage);
+        const blob = await response.blob();
+        await navigator.clipboard.write([
+          new ClipboardItem({ [blob.type]: blob })
+        ]);
+        alert("✅ QR code copied to clipboard! Now you can paste it.");
+      } catch (err) {
+        alert("⚠️ Failed to copy QR code. Some browsers may not support this feature.");
+        console.error(err);
+      }
+    };
+
+    // Add to history
     const historyItem = document.createElement("div");
     historyItem.classList.add("history-item");
     historyItem.innerHTML = `
