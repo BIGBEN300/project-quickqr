@@ -10,145 +10,336 @@
   <div class="container">
     <header role="banner">
       <h1>
-        <span class="icon-star" aria-hidden="true">✨</span>
         <span class="logo-text">QuickQR</span>
-        <span class="icon-star" aria-hidden="true">✨</span>
       </h1>
       <p class="tagline">Create stunning QR codes in seconds</p>
     </header>
 
     <main role="main">
-      <div class="cards-grid">
-        <!-- Generate Card -->
-        <section class="card generate-card" aria-labelledby="generate-title">
-          <h2 id="generate-title" class="card-title">Generate</h2>
-          
-          <div class="form-group">
-            <label for="qrInput" class="form-label">Enter Data or URL</label>
-            <input 
-              type="text" 
-              id="qrInput" 
-              class="form-input"
-              placeholder="https://example.com or any text..." 
-              aria-required="true"
-              aria-describedby="qrInput-desc"
-            >
-            <span id="qrInput-desc" class="sr-only">Enter the text or URL you want to encode in the QR code</span>
-          </div>
+      <!-- Step Indicators -->
+      <nav class="step-indicator" role="navigation" aria-label="Wizard steps">
+        <ol class="step-list">
+          <li class="step-item active" data-step="1" aria-current="step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <span class="step-label">Add URL</span>
+          </li>
+          <li class="step-item" data-step="2">
+            <span class="step-number" aria-hidden="true">2</span>
+            <span class="step-label">Design</span>
+          </li>
+          <li class="step-item" data-step="3">
+            <span class="step-number" aria-hidden="true">3</span>
+            <span class="step-label">Finish</span>
+          </li>
+        </ol>
+      </nav>
 
-          <div class="form-group">
-            <label for="qrColor" class="form-label">QR Color</label>
-            <div class="color-picker-wrapper">
-              <div class="color-preview" aria-hidden="true">
-                <span class="color-swatch" id="qrColorPreview" style="background-color: #0A0F1A;"></span>
-              </div>
-              <input 
-                type="color" 
-                id="qrColor" 
-                class="color-input"
-                value="#0A0F1A"
-                aria-label="QR code color"
-              >
-              <input 
-                type="text" 
-                id="qrColorText" 
-                class="color-text-input"
-                value="#0A0F1A"
-                aria-label="QR code color hex value"
-                maxlength="7"
-                pattern="^#[0-9A-Fa-f]{6}$"
-              >
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="bgColor" class="form-label">Background</label>
-            <div class="color-picker-wrapper">
-              <div class="color-preview" aria-hidden="true">
-                <span class="color-swatch" id="bgColorPreview" style="background-color: #E0F7FF;"></span>
-              </div>
-              <input 
-                type="color" 
-                id="bgColor" 
-                class="color-input"
-                value="#E0F7FF"
-                aria-label="Background color"
-              >
+      <!-- Wizard Content -->
+      <div class="wizard-container">
+        <!-- Step 1: Add URL -->
+        <section 
+          class="wizard-step active" 
+          id="step1" 
+          role="tabpanel"
+          aria-labelledby="step1-title"
+          aria-hidden="false"
+        >
+          <div class="card step-card">
+            <h2 id="step1-title" class="step-title">Add URL or Data</h2>
+            <p class="step-description">Enter the URL or text you want to encode in your QR code</p>
+            
+            <div class="form-group">
+              <label for="qrInput" class="form-label">Enter Data or URL</label>
               <input 
                 type="text" 
-                id="bgColorText" 
-                class="color-text-input"
-                value="#E0F7FF"
-                aria-label="Background color hex value"
-                maxlength="7"
-                pattern="^#[0-9A-Fa-f]{6}$"
+                id="qrInput" 
+                class="form-input"
+                placeholder="https://example.com or any text..." 
+                aria-required="true"
+                aria-describedby="qrInput-desc"
               >
+              <span id="qrInput-desc" class="form-help">Enter the text or URL you want to encode in the QR code</span>
+            </div>
+
+            <div class="wizard-actions">
+              <button 
+                id="step1Next" 
+                class="btn-primary"
+                type="button"
+                aria-label="Continue to design step"
+              >
+                Next: Design
+              </button>
             </div>
           </div>
-
-          <div class="form-group">
-            <label for="qrSize" class="form-label">Size</label>
-            <select id="qrSize" class="form-select" aria-label="QR code size">
-              <option value="128">Small (128px)</option>
-              <option value="256" selected>Medium (256px)</option>
-              <option value="384">Large (384px)</option>
-              <option value="512">Extra Large (512px)</option>
-            </select>
-          </div>
-
-          <button 
-            id="generateBtn" 
-            class="btn-primary"
-            type="button"
-            aria-label="Generate QR code"
-          >
-            Generate QR Code
-          </button>
         </section>
 
-        <!-- Preview Card -->
-        <section class="card preview-card" aria-labelledby="preview-title">
-          <h2 id="preview-title" class="card-title">Preview</h2>
-          
-          <div class="qr-preview-container" id="qrPreviewContainer">
-            <div class="qr-placeholder" id="qrPlaceholder" aria-hidden="true">
-              <span class="placeholder-icon">✨</span>
+        <!-- Step 2: Design -->
+        <section 
+          class="wizard-step" 
+          id="step2" 
+          role="tabpanel"
+          aria-labelledby="step2-title"
+          aria-hidden="true"
+        >
+          <div class="step-content-grid">
+            <!-- Design Options -->
+            <div class="card design-card">
+              <h2 id="step2-title" class="step-title">Customize Your QR Code</h2>
+              
+              <!-- Colors -->
+              <div class="design-section">
+                <h3 class="design-section-title">Colors</h3>
+                
+                <div class="form-group">
+                  <label for="qrColor" class="form-label">QR Color</label>
+                  <div class="color-picker-wrapper">
+                    <div class="color-preview" aria-hidden="true">
+                      <span class="color-swatch" id="qrColorPreview" style="background-color: #0A0F1A;"></span>
+                    </div>
+                    <input 
+                      type="color" 
+                      id="qrColor" 
+                      class="color-input"
+                      value="#0A0F1A"
+                      aria-label="QR code color"
+                    >
+                    <input 
+                      type="text" 
+                      id="qrColorText" 
+                      class="color-text-input"
+                      value="#0A0F1A"
+                      aria-label="QR code color hex value"
+                      maxlength="7"
+                      pattern="^#[0-9A-Fa-f]{6}$"
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="bgColor" class="form-label">Background</label>
+                  <div class="color-picker-wrapper">
+                    <div class="color-preview" aria-hidden="true">
+                      <span class="color-swatch" id="bgColorPreview" style="background-color: #E0F7FF;"></span>
+                    </div>
+                    <input 
+                      type="color" 
+                      id="bgColor" 
+                      class="color-input"
+                      value="#E0F7FF"
+                      aria-label="Background color"
+                    >
+                    <input 
+                      type="text" 
+                      id="bgColorText" 
+                      class="color-text-input"
+                      value="#E0F7FF"
+                      aria-label="Background color hex value"
+                      maxlength="7"
+                      pattern="^#[0-9A-Fa-f]{6}$"
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Size -->
+              <div class="design-section">
+                <h3 class="design-section-title">Size</h3>
+                <div class="form-group">
+                  <label for="qrSize" class="form-label">QR Code Size</label>
+                  <select id="qrSize" class="form-select" aria-label="QR code size">
+                    <option value="128">Small (128px)</option>
+                    <option value="256" selected>Medium (256px)</option>
+                    <option value="384">Large (384px)</option>
+                    <option value="512">Extra Large (512px)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Frame -->
+              <div class="design-section">
+                <h3 class="design-section-title">Frame Style</h3>
+                <div class="form-group">
+                  <label for="frameStyle" class="form-label">Choose a frame</label>
+                  <div class="frame-options" role="radiogroup" aria-labelledby="frameStyle-label">
+                    <button 
+                      type="button"
+                      class="frame-option active"
+                      data-frame="none"
+                      aria-pressed="true"
+                      aria-label="No frame"
+                    >
+                      <span class="frame-preview">None</span>
+                    </button>
+                    <button 
+                      type="button"
+                      class="frame-option"
+                      data-frame="scan-me"
+                      aria-pressed="false"
+                      aria-label="Scan Me frame"
+                    >
+                      <span class="frame-preview">Scan Me</span>
+                    </button>
+                    <button 
+                      type="button"
+                      class="frame-option"
+                      data-frame="scan-to-visit"
+                      aria-pressed="false"
+                      aria-label="Scan to Visit frame"
+                    >
+                      <span class="frame-preview">Scan to Visit</span>
+                    </button>
+                    <button 
+                      type="button"
+                      class="frame-option"
+                      data-frame="scan-here"
+                      aria-pressed="false"
+                      aria-label="Scan Here frame"
+                    >
+                      <span class="frame-preview">Scan Here</span>
+                    </button>
+                  </div>
+                  <input type="hidden" id="frameStyle" value="none">
+                </div>
+              </div>
+
+              <!-- Logo -->
+              <div class="design-section">
+                <h3 class="design-section-title">Logo</h3>
+                <div class="form-group">
+                  <label for="logoUpload" class="form-label">Add Logo (Optional)</label>
+                  <div class="logo-upload-wrapper">
+                    <input 
+                      type="file" 
+                      id="logoUpload" 
+                      class="logo-upload-input"
+                      accept="image/*"
+                      aria-label="Upload logo image"
+                      aria-describedby="logoUpload-desc"
+                    >
+                    <label for="logoUpload" class="logo-upload-label">
+                      <span class="logo-upload-icon">📷</span>
+                      <span class="logo-upload-text">Choose Logo Image</span>
+                    </label>
+                    <span id="logoUpload-desc" class="form-help">Logo will be placed in the center of the QR code</span>
+                  </div>
+                  <div id="logoPreview" class="logo-preview" style="display: none;">
+                    <img id="logoPreviewImg" src="" alt="Logo preview">
+                    <button 
+                      type="button"
+                      id="removeLogo"
+                      class="btn-remove"
+                      aria-label="Remove logo"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="wizard-actions">
+                <button 
+                  id="step2Back" 
+                  class="btn-secondary"
+                  type="button"
+                  aria-label="Go back to URL step"
+                >
+                  Back
+                </button>
+                <button 
+                  id="step2Next" 
+                  class="btn-primary"
+                  type="button"
+                  aria-label="Continue to finalize step"
+                >
+                  Next: Finalize
+                </button>
+              </div>
             </div>
-            <img 
-              id="qrCode" 
-              src="" 
-              alt=""
-              class="qr-code-image"
-              style="display: none;"
-              aria-live="polite"
-            >
-            <p class="placeholder-text" id="placeholderText">Your QR code will appear here</p>
-          </div>
 
-          <div class="qr-actions" id="qrActions" style="display: none;">
-            <button 
-              id="downloadBtn" 
-              class="btn-secondary"
-              type="button"
-              aria-label="Download QR code"
-            >
-              Download
-            </button>
-            <button 
-              id="copyBtn" 
-              class="btn-secondary"
-              type="button"
-              aria-label="Copy QR code to clipboard"
-            >
-              Copy
-            </button>
+            <!-- Preview -->
+            <div class="card preview-card">
+              <h3 class="step-title">Live Preview</h3>
+              <div class="qr-preview-container" id="qrPreviewContainer">
+                <div class="qr-placeholder" id="qrPlaceholder" aria-hidden="true">
+                  <span class="placeholder-icon">✨</span>
+                </div>
+                <canvas 
+                  id="qrPreviewCanvas" 
+                  class="qr-code-canvas"
+                  style="display: none;"
+                  aria-label="QR code preview"
+                ></canvas>
+                <p class="placeholder-text" id="previewPlaceholderText">Your QR code preview will appear here</p>
+              </div>
+            </div>
           </div>
+        </section>
 
-          <div id="qrData" class="qr-data" aria-live="polite"></div>
+        <!-- Step 3: Finalize -->
+        <section 
+          class="wizard-step" 
+          id="step3" 
+          role="tabpanel"
+          aria-labelledby="step3-title"
+          aria-hidden="true"
+        >
+          <div class="card finalize-card">
+            <h2 id="step3-title" class="step-title">Your QR Code is Ready!</h2>
+            <p class="step-description">Download, copy, or save your customized QR code</p>
+            
+            <div class="final-qr-container">
+              <canvas 
+                id="finalQrCanvas" 
+                class="final-qr-canvas"
+                aria-label="Final QR code"
+              ></canvas>
+            </div>
+
+            <div id="qrData" class="qr-data" aria-live="polite"></div>
+
+            <div class="final-actions">
+              <button 
+                id="downloadBtn" 
+                class="btn-primary"
+                type="button"
+                aria-label="Download QR code"
+              >
+                Download
+              </button>
+              <button 
+                id="copyBtn" 
+                class="btn-secondary"
+                type="button"
+                aria-label="Copy QR code to clipboard"
+              >
+                Copy
+              </button>
+              <button 
+                id="saveToHistoryBtn" 
+                class="btn-secondary"
+                type="button"
+                aria-label="Save to history"
+              >
+                Save to History
+              </button>
+            </div>
+
+            <div class="wizard-actions">
+              <button 
+                id="createNewBtn" 
+                class="btn-primary"
+                type="button"
+                aria-label="Create a new QR code"
+              >
+                Create New QR Code
+              </button>
+            </div>
+          </div>
         </section>
       </div>
 
-      <!-- History Card -->
+      <!-- History Card (Separate Section) -->
       <section class="card history-card" id="historyCard" aria-labelledby="history-title" style="display: none;">
         <div class="history-header">
           <h2 id="history-title" class="card-title">History</h2>
