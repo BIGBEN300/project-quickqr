@@ -3,48 +3,171 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>QuickQR</title>
+  <title>QuickQR - Create stunning QR codes in seconds</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Welcome to <span>QuickQR</span></h1>
-      <p>The simplest way to create and manage QR codes</p>
+    <header role="banner">
+      <h1>
+        <span class="icon-star" aria-hidden="true">✨</span>
+        <span class="logo-text">QuickQR</span>
+        <span class="icon-star" aria-hidden="true">✨</span>
+      </h1>
+      <p class="tagline">Create stunning QR codes in seconds</p>
     </header>
 
-    <div class="card">
-      <input type="text" id="qrInput" placeholder="Enter data or URL...">
+    <main role="main">
+      <div class="cards-grid">
+        <!-- Generate Card -->
+        <section class="card generate-card" aria-labelledby="generate-title">
+          <h2 id="generate-title" class="card-title">Generate</h2>
+          
+          <div class="form-group">
+            <label for="qrInput" class="form-label">Enter Data or URL</label>
+            <input 
+              type="text" 
+              id="qrInput" 
+              class="form-input"
+              placeholder="https://example.com or any text..." 
+              aria-required="true"
+              aria-describedby="qrInput-desc"
+            >
+            <span id="qrInput-desc" class="sr-only">Enter the text or URL you want to encode in the QR code</span>
+          </div>
 
-      <div class="color-options">
-        <label>QR Color: <input type="color" id="qrColor" value="#000000"></label>
-        <label>Background: <input type="color" id="bgColor" value="#ffffff"></label>
+          <div class="form-group">
+            <label for="qrColor" class="form-label">QR Color</label>
+            <div class="color-picker-wrapper">
+              <div class="color-preview" aria-hidden="true">
+                <span class="color-swatch" id="qrColorPreview" style="background-color: #0A0F1A;"></span>
+              </div>
+              <input 
+                type="color" 
+                id="qrColor" 
+                class="color-input"
+                value="#0A0F1A"
+                aria-label="QR code color"
+              >
+              <input 
+                type="text" 
+                id="qrColorText" 
+                class="color-text-input"
+                value="#0A0F1A"
+                aria-label="QR code color hex value"
+                maxlength="7"
+                pattern="^#[0-9A-Fa-f]{6}$"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bgColor" class="form-label">Background</label>
+            <div class="color-picker-wrapper">
+              <div class="color-preview" aria-hidden="true">
+                <span class="color-swatch" id="bgColorPreview" style="background-color: #E0F7FF;"></span>
+              </div>
+              <input 
+                type="color" 
+                id="bgColor" 
+                class="color-input"
+                value="#E0F7FF"
+                aria-label="Background color"
+              >
+              <input 
+                type="text" 
+                id="bgColorText" 
+                class="color-text-input"
+                value="#E0F7FF"
+                aria-label="Background color hex value"
+                maxlength="7"
+                pattern="^#[0-9A-Fa-f]{6}$"
+              >
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="qrSize" class="form-label">Size</label>
+            <select id="qrSize" class="form-select" aria-label="QR code size">
+              <option value="128">Small (128px)</option>
+              <option value="256" selected>Medium (256px)</option>
+              <option value="384">Large (384px)</option>
+              <option value="512">Extra Large (512px)</option>
+            </select>
+          </div>
+
+          <button 
+            id="generateBtn" 
+            class="btn-primary"
+            type="button"
+            aria-label="Generate QR code"
+          >
+            Generate QR Code
+          </button>
+        </section>
+
+        <!-- Preview Card -->
+        <section class="card preview-card" aria-labelledby="preview-title">
+          <h2 id="preview-title" class="card-title">Preview</h2>
+          
+          <div class="qr-preview-container" id="qrPreviewContainer">
+            <div class="qr-placeholder" id="qrPlaceholder" aria-hidden="true">
+              <span class="placeholder-icon">✨</span>
+            </div>
+            <img 
+              id="qrCode" 
+              src="" 
+              alt=""
+              class="qr-code-image"
+              style="display: none;"
+              aria-live="polite"
+            >
+            <p class="placeholder-text" id="placeholderText">Your QR code will appear here</p>
+          </div>
+
+          <div class="qr-actions" id="qrActions" style="display: none;">
+            <button 
+              id="downloadBtn" 
+              class="btn-secondary"
+              type="button"
+              aria-label="Download QR code"
+            >
+              Download
+            </button>
+            <button 
+              id="copyBtn" 
+              class="btn-secondary"
+              type="button"
+              aria-label="Copy QR code to clipboard"
+            >
+              Copy
+            </button>
+          </div>
+
+          <div id="qrData" class="qr-data" aria-live="polite"></div>
+        </section>
       </div>
 
-      <div class="size-options">
-        <label for="qrSize">Size:</label>
-        <select id="qrSize">
-          <option value="150">Small</option>
-          <option value="300" selected>Medium</option>
-          <option value="500">Large</option>
-        </select>
-      </div>
+      <!-- History Card -->
+      <section class="card history-card" id="historyCard" aria-labelledby="history-title" style="display: none;">
+        <div class="history-header">
+          <h2 id="history-title" class="card-title">History</h2>
+          <button 
+            id="clearAllBtn" 
+            class="btn-danger"
+            type="button"
+            aria-label="Clear all QR code history"
+          >
+            <span aria-hidden="true">🗑️</span>
+            <span class="btn-text">Clear All</span>
+          </button>
+        </div>
+        <div id="historyList" class="history-list" role="list" aria-label="Previously generated QR codes"></div>
+        <div id="historyEmpty" class="history-empty" role="status">No QR codes generated yet</div>
+      </section>
+    </main>
 
-      <button id="generateBtn">Generate</button>
-    </div>
-
-    <div class="card output" id="outputCard">
-      <h2>Your Generated QR Code</h2>
-      <img id="qrCode" src="" alt="QR Code will appear here">
-      <p id="qrData"></p>
-      <button id="downloadBtn" style="display:none;">Download QR Code</button>
-      <button id="copyBtn" style="display:none;">Copy QR Code</button>
-    </div>
-
-    <div class="card history" id="historyCard" style="display: none;">
-     <h2>History</h2>
-     <div id="historyList" class="history-list"></div>
-    </div>
+    <div id="statusMessage" class="status-message" role="status" aria-live="polite" aria-atomic="true"></div>
   </div>
 
   <script src="script.js"></script>
