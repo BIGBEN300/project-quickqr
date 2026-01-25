@@ -98,6 +98,20 @@ header h1 {
 
 .icon-star {
   font-size: 2.5rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  margin-top: var(--spacing-xl);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+footer p {
+  margin: 0;
   color: var(--accent-primary);
   display: inline-block;
   animation: sparkle 2s ease-in-out infinite;
